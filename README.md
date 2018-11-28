@@ -7,10 +7,18 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 * [![Shiny](http://mybinder.org/badge.svg)](http://beta.mybinder.org/v2/gh/jaanos/APPR-2018-19/master?urlpath=shiny/APPR-2018-19/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://beta.mybinder.org/v2/gh/jaanos/APPR-2018-19/master?urlpath=rstudio) RStudio
 
-## Tematika
+## Analiza Eurojackpota
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Eurojackpot je mednacionalna evropska loterija, ki se je začela marca 2012.
+Države, ki sodelujejo v loteriji so: Hrvaška, Češka, Danska, Estonija, Finska, Nemčija, Madžarska, Islandija, Italija, Latvija, Litva, Nizozemska, Norveška,Slovaška, Slovenija, Španija, Švedska in Poljska.
+
+
+Pri svojem projektu bom analizirala kakšni so bili dobitiki, v katerih državah so bili najpogostejši in kako pogosto se pojavljajo posamezne številke.
+
+#Viri:
+- https://www.euro-jackpot.com/statistics/
+- https://en.wikipedia.org/wiki/Eurojackpot
+- https://www.loterija.si/LOTERIJA,,igre,igre_z_zrebanji,eurojackpot,statistika,eurojackpot_arhiv.htm
 
 ## Program
 
