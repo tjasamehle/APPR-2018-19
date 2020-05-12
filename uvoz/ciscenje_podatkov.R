@@ -18,8 +18,9 @@ library(gsubfn)
 tabela <-rbind(tabela2012,tabela2013,tabela2014,tabela2015,tabela2016,tabela2017,tabela2018)
 tabela[['Datum']] <- parse_date(tabela[['Datum']],"%d.%m.%Y")
 
-#1.RAZPREDELNICA(DATUM in KROG)
+#1.RAZPREDELNICA(DATUM, KROG, DOBITEK)
 tabela1 <- tabela[c(1,2)]
+
 
 #2.RAZPREDELNICA(DATUM, STEVILKA, TIP)
 razpredelnica2 <-tabela[c(1,3)]
@@ -52,7 +53,7 @@ razpredelnica3 <- razpredelnica3%>% gather(Dobitek,Vrednost, "JACKPOT":"5+1")
 tabela3 <- razpredelnica3 %>% filter(Vrednost != "")
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 tabela3[['Vrednost']] <- parse_number(tabela3[['Vrednost']], na="-", locale=sl)
-tabela3$Vrednost <- as.numeric(tabela3$Vrednost)
+
 
 
 #4.RAZPREDELNICA(DATUM, DOBITEK, STEVILO, DRŽAVA)
@@ -77,7 +78,7 @@ c <- parse_number(jackpot$drzava)      #parse_number-vzame število, če ni je N
 is.na_replace_1 <- c                            
 is.na_replace_1[is.na(is.na_replace_1)] <- 1 
 jackpot$stevilo <- is.na_replace_1
-jackpot$dobitek <- c(rep('jackpot', times=60))
+jackpot <- jackpot %>% mutate(dobitek = 'jackpot')
 
 pet<-tabelaa[c(1,3)]
 pet$Drzava <- tabelaaa$dr_5
@@ -91,8 +92,7 @@ c <- parse_number(pet$drzava)
 is.na_replace_1 <- c                            
 is.na_replace_1[is.na(is.na_replace_1)] <- 1 
 pet$stevilo<-is.na_replace_1
-pet <- pet %>%filter(drzava != "")
-pet$dobitek <- c(rep('5+1', times=623))
+pet <- pet %>%filter(drzava != "")  %>% mutate(dobitek = '5+1')
 
 
 tabela_koncna <- rbind(jackpot,pet)
