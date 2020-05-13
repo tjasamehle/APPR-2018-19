@@ -40,8 +40,19 @@ tabela_prve <- left_join(tabela_prve, nazadnje_prva, by = c('Stevilka'='Stevilka
 tabela_zadnje <- left_join(pojavi_zadnja,pojavi_v_jackpot_zadnje, by = c('Stevilka'='Stevilka') )
 tabela_zadnje <- left_join(tabela_zadnje, nazadnje_zadnja, by = c('Stevilka'='Stevilka') )
 
-# #s katero številko največkrat v paru(za zadnje dve)
-# par <- tabela2 %>% filter(Tip == 'zadnje_dve') %>% group_by(Datum) %>% summarise ( par == (min(Stevilka):max(Stevilka)))
+#s katero številko največkrat v paru(za zadnje dve)
+par <- tabela2 %>% filter(Tip == 'zadnje_dve') %>% group_by(Datum) %>% summarise ( 
+  'par1' = min(Stevilka), 'par2' =max(Stevilka))
+par <-par %>% group_by(par1) %>% count(par2)
+
+table <- function(x){
+vparu <- par %>% filter(par1 == x | par2 == x) %>% gather(krneki, Stevilka, par1:par2) %>% filter(Stevilka != x )
+vparu$krneki <- NULL
+vparu <-vparu[,c(2,1)]
+colnames(vparu) <- c('Stevilka','Pojavi v paru z analizirano stevilko')
+vparu
+}
+
 
 # podatki <- obcine %>% transmute(obcina, povrsina, gostota,
 #                                 gostota.naselij=naselja/povrsina) %>%

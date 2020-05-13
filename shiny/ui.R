@@ -15,6 +15,7 @@ shinyUI(fluidPage(
                sidebarPanel(
                   uiOutput("zadnjestevilke")
                 ),
-               mainPanel(dataTableOutput("zadnjastevilka")))
+               mainPanel(dataTableOutput("zadnjastevilka"),
+                         dataTableOutput("pojavi")))
     )
 ))

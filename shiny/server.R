@@ -20,6 +20,12 @@ shinyServer(function(input, output) {
     else {tabela_zadnje}
   )
   
+  output$pojavi <- renderDataTable(if (!is.null(input$eurostevilke) && input$eurostevilke %in% c(1:10)){
+    u <- table(input$eurostevilke)
+  }
+    else {return()}
+  )
+  
   # output$naselja <- renderPlot({
   #   main <- "Pogostost števila naselij"
   #   if (!is.null(input$pokrajina) && input$pokrajina %in% levels(obcine$pokrajina)) {
