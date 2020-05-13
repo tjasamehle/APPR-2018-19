@@ -10,6 +10,26 @@ output:
 runtime: shiny
 ---
 
+<style type="text/css">
+h1.title {
+  font-size: 27px;
+  color: Grey;
+}
+h4.author{
+  color:Grey;
+  margin-bottom: 40px;
+}
+h1.naslov{
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+center.slika{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>
+
+
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 # Če želimo nastaviti pisave v PDF-ju, odkomentiramo
 # in sledimo navodilom v programu.
@@ -24,87 +44,160 @@ source("lib/libraries.r", encoding="UTF-8")
 source("lib/rstudio.r", encoding="UTF-8")
 ```
 
-# Izbira teme
+<center> <h1 class="naslov">EUROJACKPOT</h1> </center>
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 
-![](slike/grb.png)
+Za projekt sem si izbrala EUROJACKPOT. Analizirala bom dobitke po letih in višini ter pogostost pojavljanja določenega števila. Pogledala bom tudi koliokrat se je posrečilo Slovencem.
+
+<center class="slika">
+
+
+![](slike/jackpot.png)
+
+
+&nbsp;
+&nbsp;
 
 ***
 
 # Obdelava, uvoz in čiščenje podatkov
 
-```{r uvoz, echo=FALSE, message=FALSE}
+```{r uvoz, echo=FALSE, message=FALSE, warning=FALSE}
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki *tidy data*.
+Vse potrebne tabele sem dobila na spletni strani eurojackpota in loterije in jih uvozila v obliki HTML.
+Podatke imam v šterih razpredelnicah v obliki *tidy data*.
 
-1. `druzine` - podatki o družinah za vsako občino
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `velikost.druzine` - spremenljivka: število otrok v družini (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
-  - `stevilo.druzin` - meritev: število družin z ustreznim številom otrok v ustrezni občini (število).
+&nbsp;
+&nbsp;
 
-2. `obcine` - podatki o občinah
-  - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+1. **tabela1** - Podatki o krogih v katerih je bil izžreban listek na določen datum
+  - `Datum` - spremenljivka: datum žrebanja,
+  - `Krog` - spremenljivka: krog v katerem je bil listek izžreban.
+  
+```{r tabela1, echo=FALSE, message=FALSE}
+kable(head(tabela1), align="c")
+```  
+ 
+&nbsp;
+&nbsp;
 
-**Opomba**: da bi razpredelnica `obcine` res bila v obliki *tidy data*, bi morali odstraniti stolpec `gostota` (saj je izpeljan iz stolpcev `povrsina` in `prebivalci`), podatke o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s stolpcem `odcepitev`.
+2. **tabela2** - podatki o številkah in njenem tipu (ali gre za glavne številke ali za dodatne dve (euro stevilke))
+  - `Datum` - spremenljivka: datum žrebanja,
+  - `Tip` - spremenljivka: za kateri tip številke gre,
+  - `Številka` - spremenljivka: številka ki je bila na listku.
 
-Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+```{r tabela2, echo=FALSE, message=FALSE}
+kable(head(tabela2), align="c")
+```  
+ 
+&nbsp;
+&nbsp;
 
-<!-- ```{r histogram, echo=FALSE, message=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'} -->
-<!-- ggplot(obcine, aes(x=naselja)) + geom_histogram() + -->
-<!--   ggtitle("Pogostost števila naselij") + xlab("Število naselij") + ylab("Število občin") -->
-<!-- ``` -->
+3. **tabela3** - podatki o višini dobitkov določenega tipa(Eurojackpot ali 5+1)
+  - `Datum` - spremenljivka: datum žrebanja,
+  - `Dobitek` - spremenljivka: za kateri tip zadetka gre,
+  - `Vrednost` - spremenljivka: višina dobitka.
+  
+```{r tabela3, echo=FALSE, message=FALSE}
+kable(head(tabela3), align="c")
+```  
+ 
+&nbsp;
+&nbsp;  
+
+ 4. **tabela4** - podatki o dobitkih po državah
+  - `Datum` - spremenljivka: datum žrebanja,
+  - `Stevilo` - spremenljivka: koliko zadetkov je bilo v državi na ta dan,
+  - `Drzava` - spremenljivka: ime države v kateri je bil dobitek,
+  - `Dobitek` - spremenljivka: za kateri tip dobitka gre.
+ 
+```{r tabela4, echo=FALSE, message=FALSE}
+kable(head(tabela4), align="c")
+```  
+ 
+&nbsp;
+&nbsp; 
+
+Spodnja tabela prikazuje kako je bilo z dobitki v Sloveniji.
+```{r slovenija, echo=FALSE, message=FALSE}
+kable(slovenija, align="c")
+``` 
+&nbsp;
+&nbsp;
 
 ***
-
 # Analiza in vizualizacija podatkov
+```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE}
+source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
+```
+Najprej me je zanimalo koliko je dobitkov na leto. 
 
-```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-source("vizualizacija/vizualizacija.r", encoding="UTF-8")
+```{r graf_dobitki, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(graf_dobitki)
 ```
 
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+Vidimo da je dobitkov 5+1 veliko več kot jackpot, kar je tudi pričakovano. Leta 2017 pa je bilo največ jackpot dobitkov, zato me je zanimalo kakšna je bila višina nagrade.
 
-# ```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-# #ggplot() + geom_polygon(data=left_join(zemljevid, povprecja, by=c("OB_UIME"="obcina")),
-#                       #  aes(x=long, y=lat, group=group, fill=povprecje)) +
-#   #ggtitle("Povprečno število otrok v družini") + xlab("") + ylab("") +
-#   #guides(fill=guide_colorbar(title="Povprečje"))
-# ```
+```{r visina, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(visina_jackpot)
+```
+
+Opazimo, da so dobitki '5+1' zanemarljivi proti jackpot dobitkom, očino pa izstopa dobitek leta 2012. Jackpot dobitki pa so bili zelo visoki leta 2016, saj se gibajo že pri najvišji možni vrednosti 90 milijonov €.
+
+Naslednja stvar, ki sem jo želala vedeti je katere države spadajo pod najbolj "srečne".
+To sem prikazala z zemljevidom dobitkov jackpot po državah ter zemljevidom dobitkov 5+1.
+
+
+```{r zemljevid_zadetki_jackpot, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(zemljevid_zadetki_jackpot)
+```
+
+
+```{r zemljevid_zadetki_pet, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(zemljevid_zadetki_pet)
+```
+
+Vidimo da je Nemčija pobrala največ dobitko obeh tipov in je daleč pred ostalimi državami. Medtem ko ima večino držav do 5 dobitkov jackpota in do 50 dobitkov '5+1', je v Nemčijo šlo približno pet krat več nagrad. Sreče pa ne manjka tudi Fincem. 
+
+
+Poglejmo kako pa je s pojavlanjem številk na listu, vsak listek je sestavljen iz 5 glavnih stevil od 1 do 50, in dvema dodatnima številkama (rečejo jim tud euro številke).
+
+```{r pogostost_prvih, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(pogostost_prvih)
+```
+
+
+Vidimo, da sta na dobitnih listkih največkrat prisotni številki 18 in 40, med top pet številk pa bi bi lahko uvristili še 16, 19 in 33. Na dobitnih listkih pa veliko manjkrat vidimo števila 2, 48 in 50.
+
+
+```{r pogostost_zadnjih, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(pogostost_zadnjih)
+```
+
+Na mestih za dodatni števili pa so dobitnih listkih največkrat imeli številko 5. Opazimo da je tudi tukaj največja številka, torej številka 10 najmanjkrat izžrebana.
+
+
+&nbsp;
+&nbsp;
 
 ***
-
-# Napredna analiza podatkov
-
 ```{r analiza, echo=FALSE, message=FALSE}
 source("analiza/analiza.r", encoding="UTF-8")
 ```
-
-Spodnji graf prikazuje povezavo med številom naselij in površino občine.
-
-# ```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-# ggplot(inner_join(obcine, data.frame(obcina=names(skupine),
-#                                      skupina=factor(skupine)), by="obcina")
-# , aes(x=povrsina, y=naselja, color=skupina, size=prebivalci/1000)) + geom_point() +
-#   ggtitle("Število naselij glede na površino občine") +
-#   xlab(expression("Površina (km"^2 * ")")) + ylab("Št. naselij") +
-#   guides(color=guide_legend(title="Skupina"),
-#          size=guide_legend(title="Prebivalci (* 1000)"))
-# ```
+# Naprednejša analiza
+Ker se mi je pojavnost števil zdela zanimiva sem nadaljevala z napredno analizo.
+V aplikaciji Shiny sem pripravila tabele in sicer analizo glavnih števil ter analizo dodatnih števil.
+Za usako število tako lahko pogledamo kolikokrat so bile ižžrebane, kolikokrat so bile na dobitnem jackpot listku, ter kdaj je bila številka nazadnje izžrebama. Za analizo dodatnih dveh števil sem dodala še tabelo, ki za izbrano število pokaže kolikokrat je bila v paru z ostalimi števili.
 
 ***
-
-```{r shiny, echo=FALSE}
-shinyAppDir("shiny", options=list(width="100%", height=600))
+```{r shiny, echo = FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=1300))
 ```
+
+&nbsp;
+&nbsp;
+
+***
+ 

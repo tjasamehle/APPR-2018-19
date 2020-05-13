@@ -147,7 +147,8 @@ tabela_koncna$drzava <- gsub("[[:digit:]]x", "", tabela_koncna$drzava)
 tabela_koncna <- tabela_koncna %>% separate('drzava', c("drzava","kraj"), "\\(", extra="merge")
 tabela_koncna$kraj<- gsub("\\)", "", tabela_koncna$kraj)
 slovenija<- tabela_koncna %>%filter(drzava == "Slovenija")
-
+slovenija$drzava <- NULL
+slovenija$stevilo <- NULL
 tabela4 <- subset(tabela_koncna, select = - kraj)
 
 

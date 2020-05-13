@@ -18,20 +18,20 @@ pojavi_v_jackpot_prvih$Stevilka <- as.numeric(pojavi_v_jackpot_prvih$Stevilka)
 #kolikokrat na dobitnih listkih
 pojavi_v_jackpot_prvih <- pojavi_v_jackpot_prvih %>% count(Stevilka)
 pojavi_v_jackpot_zadnje <- pojavi_v_jackpot_zadnje %>% count(Stevilka)
-colnames(pojavi_v_jackpot_prvih) <- c('Stevilka','Na dobitnem Jackpot listku')
-colnames(pojavi_v_jackpot_zadnje) <- c('Stevilka','Na dobitnem Jackpot listku')
+colnames(pojavi_v_jackpot_prvih) <- c('Stevilka','Bila na dobitnem Jackpot listku')
+colnames(pojavi_v_jackpot_zadnje) <- c('Stevilka','Bila na dobitnem Jackpot listku')
 
 #kolikokrat na listkih
 pojavi_prva<- tabela2 %>% filter(Tip == 'prvih_pet') %>% count(Stevilka)
 pojavi_zadnja <- tabela2 %>% filter(Tip == 'zadnje_dve') %>% count(Stevilka)
-colnames(pojavi_prva) <- c('Stevilka','Izžrebana')
-colnames(pojavi_zadnja) <- c('Stevilka','Izžrebana')
+colnames(pojavi_prva) <- c('Stevilka','Bila izžrebana')
+colnames(pojavi_zadnja) <- c('Stevilka','Bila izžrebana')
 #nazadnje zrebana
 nazadnje_prva <-tabela2 %>% filter(Tip == 'prvih_pet') %>% group_by(Stevilka) %>% 
-  summarise('Nazadnje izžrebana' = max(Datum) )
+  summarise('Bila nazadnje izžrebana' = max(Datum) )
 
 nazadnje_zadnja <- nazadnje_zadnja <-tabela2 %>% filter(Tip == 'zadnje_dve') %>% group_by(Stevilka) %>% 
-  summarise('Nazadnje izžrebana' = max(Datum) )  
+  summarise('Bila nazadnje izžrebana' = max(Datum) )  
 
 tabela_prve <- left_join(pojavi_prva,pojavi_v_jackpot_prvih, by = c('Stevilka'='Stevilka') )
 tabela_prve <- left_join(tabela_prve, nazadnje_prva, by = c('Stevilka'='Stevilka') )
@@ -49,7 +49,7 @@ table <- function(x){
 vparu <- par %>% filter(par1 == x | par2 == x) %>% gather(krneki, Stevilka, par1:par2) %>% filter(Stevilka != x )
 vparu$krneki <- NULL
 vparu <-vparu[,c(2,1)]
-colnames(vparu) <- c('Stevilka','Pojavi v paru z analizirano stevilko')
+colnames(vparu) <- c('Stevilka','Pojavila v paru z analizirano stevilko')
 vparu
 }
 
