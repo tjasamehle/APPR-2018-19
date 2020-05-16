@@ -12,7 +12,7 @@ library(digest)
 
 
 #Število dobitkov JACKPOT in 5+1 v zadnjih letih
-u <- tabela3[c(1,2)]
+u <- tabela3[c(1,3)]
 u$Datum<-gsub("-([[:digit:]]{1,2})-([[:digit:]]{1,2})","", u$Datum) #rabim samo leta
 t <- rbind(u %>% filter(Dobitek == 'JACKPOT') %>% group_by(Datum) %>%
              summarise(Stevilo = sum(Dobitek == 'JACKPOT' )) %>% mutate(Kategorija="JACKPOT"),
@@ -60,11 +60,11 @@ visina_jackpot <- ggplot(visina, aes(x=Datum, y= Vrednost)) +
 
 #Koliko denarja letno izplača Eurojackpot
 
-denar <- tabela3[c(1,3)]
+denar <- tabela3[c(1,2)]
 denar$Datum<-gsub("-([[:digit:]]{1,2})-([[:digit:]]{1,2})","", u$Datum)
 denar <- denar %>% group_by(Datum) %>% summarise(Vsota = sum(Vrednost)) 
 denar$Vsota <- denar$Vsota /1000000
-t$Datum <- as.factor(t$Datum)
+denar$Datum <- as.factor(denar$Datum)
 
 graf<- ggplot(data = denar, aes(x = Datum, y =Vsota, fill ='lightpink'))+ 
   geom_col() + 
@@ -74,7 +74,7 @@ graf<- ggplot(data = denar, aes(x = Datum, y =Vsota, fill ='lightpink'))+
 
  
 # Uvozimo zemljevid.
-source("https://raw.githubusercontent.com/jaanos/APPR-2018-19/master/lib/uvozi.zemljevid.r")
+#source("https://raw.githubusercontent.com/jaanos/APPR-2018-19/master/lib/uvozi.zemljevid.r")
 
 zemljevid <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip",
                              "ne_50m_admin_0_countries", mapa = "zemljevidi", pot.zemljevida = "", encoding = "UTF-8") %>% 
@@ -86,27 +86,24 @@ zemljevid$drzava <- as.character(zemljevid$drzava)
 
 #Zemljevid dobljenih jackpotov po državi
 
-zadetki_po_drzavah <- tabela4 %>% filter(dobitek == 'jackpot')
-c <- unlist(zadetki_po_drzavah$drzava)
-c <- trimws(c, which = c("both"))     #motijo presledki
-zadetki_po_drzavah$drzava <- c
-zadetki_po_drzavah <- zadetki_po_drzavah %>% group_by(drzava) %>% summarise(stevilo = sum(dobitek == 'jackpot' ))
-zadetki_po_drzavah$drzava <- gsub("Češka", "Czechia", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Danska", "Denmark", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Finska", "Finland", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Hrvaška", "Croatia", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Italija", "Italy", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Madžarska", "Hungary", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Nemčija", "Germany", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Nizozemska", "Netherlands", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Norveška", "Norway", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Slovenija", "Slovenia", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Španija", "Spain", zadetki_po_drzavah$drzava)
-zadetki_po_drzavah$drzava <- gsub("Švedska", "Sweden", zadetki_po_drzavah$drzava)
+zadetki_po_drzavah <- tabela4 %>% filter(Dobitek == 'jackpot')
+zadetki_po_drzavah <- zadetki_po_drzavah %>% group_by(Drzava) %>% summarise(Stevilo = sum(Dobitek == 'jackpot' ))
+zadetki_po_drzavah$Drzava <- gsub("Češka", "Czechia", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Danska", "Denmark", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Finska", "Finland", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Hrvaška", "Croatia", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Italija", "Italy", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Madžarska", "Hungary", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Nemčija", "Germany", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Nizozemska", "Netherlands", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Norveška", "Norway", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Slovenija", "Slovenia", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Španija", "Spain", zadetki_po_drzavah$Drzava)
+zadetki_po_drzavah$Drzava <- gsub("Švedska", "Sweden", zadetki_po_drzavah$Drzava)
 
 zemljevid_zadetki_jackpot <- ggplot() +
-  geom_polygon(data = zadetki_po_drzavah %>% right_join(zemljevid, by = c("drzava" = "drzava")),
-               aes(x = long, y = lat, group = group, fill = stevilo), alpha = 0.8, color = "black")+
+  geom_polygon(data = zadetki_po_drzavah %>% right_join(zemljevid, by = c("Drzava" = "drzava")),
+               aes(x = long, y = lat, group = group, fill = Stevilo), alpha = 0.8, color = "black")+
   scale_fill_gradient2(low = "green", mid = "yellow", high = "red", midpoint = 7) + 
   xlab("") + ylab("") + ggtitle("Jackpot zadetki po državah")+
   guides(fill=guide_legend(title="Število zadetkov")) + theme(plot.title = element_text(hjust = 0.5))
@@ -114,36 +111,33 @@ zemljevid_zadetki_jackpot <- ggplot() +
 #zemljevid_zadetki_jackpot
 
 #Število zadetkov '5+1' po državah
-zadetki_po_drzavah2 <- tabela4 %>% filter(dobitek == '5+1')
-c <- unlist(zadetki_po_drzavah2$drzava)
-c <- trimws(c, which = c("both"))     #motijo presledki
-zadetki_po_drzavah2$drzava <- c
-zadetki_po_drzavah2 <- zadetki_po_drzavah2 %>% group_by(drzava) %>% summarise(stevilo = sum(dobitek == '5+1' ))
+zadetki_po_drzavah2 <- tabela4 %>% filter(Dobitek == '5+1')
+zadetki_po_drzavah2 <- zadetki_po_drzavah2 %>% group_by(Drzava) %>% summarise(Stevilo = sum(Dobitek == '5+1' ))
 zadetki_po_drzavah2 <- zadetki_po_drzavah2[-c(12,13),]
-zadetki_po_drzavah2$drzava <- gsub("Češka", "Czechia", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Danska", "Denmark", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Finska", "Finland", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Hrvaška", "Croatia", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Italija", "Italy", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Madžarska", "Hungary", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Nemčija", "Germany", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Nizozemska", "Netherlands", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Norveška", "Norway", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Slovenija", "Slovenia", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Španija", "Spain", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Švedska", "Sweden", zadetki_po_drzavah2$drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Češka", "Czechia", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Danska", "Denmark", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Finska", "Finland", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Hrvaška", "Croatia", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Italija", "Italy", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Madžarska", "Hungary", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Nemčija", "Germany", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Nizozemska", "Netherlands", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Norveška", "Norway", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Slovenija", "Slovenia", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Španija", "Spain", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Švedska", "Sweden", zadetki_po_drzavah2$Drzava)
 
-zadetki_po_drzavah2$drzava <- gsub("Slovaška", "Slovakia", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Poljska", "Poland", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Litva", "Lithuania", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Latvija", "Latvia", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Islandija", "Iceland", zadetki_po_drzavah2$drzava)
-zadetki_po_drzavah2$drzava <- gsub("Estonija", "Estonia", zadetki_po_drzavah2$drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Slovaška", "Slovakia", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Poljska", "Poland", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Litva", "Lithuania", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Latvija", "Latvia", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Islandija", "Iceland", zadetki_po_drzavah2$Drzava)
+zadetki_po_drzavah2$Drzava <- gsub("Estonija", "Estonia", zadetki_po_drzavah2$Drzava)
 
 
 zemljevid_zadetki_pet <- ggplot() +
-  geom_polygon(data = zadetki_po_drzavah2 %>% right_join(zemljevid, by = c("drzava" = "drzava")),
-               aes(x = long, y = lat, group = group, fill = stevilo), alpha = 0.8, color = "black")+
+  geom_polygon(data = zadetki_po_drzavah2 %>% right_join(zemljevid, by = c("Drzava" = "drzava")),
+               aes(x = long, y = lat, group = group, fill = Stevilo), alpha = 0.8, color = "black")+
   scale_fill_gradient2(low = "pink", mid = "yellow", high = "red", midpoint = 10) + 
   xlab("") + ylab("") + ggtitle("Zadetki 5+1 po državah")+
   guides(fill=guide_legend(title="Število zadetkov")) + theme(plot.title = element_text(hjust = 0.5))

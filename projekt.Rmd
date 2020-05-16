@@ -129,7 +129,7 @@ kable(slovenija, align="c")
 
 ***
 # Analiza in vizualizacija podatkov
-```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE}
+```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE,results='hide'}
 source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
 ```
 Najprej me je zanimalo koliko je dobitkov na leto. 

@@ -1,15 +1,15 @@
 # 4. faza: Analiza podatkov
 pojavi_v_jackpot <- tabela[c(1,3,4)]
 colnames(pojavi_v_jackpot) <- c('Datum','Številke','Število')
-pojavi_v_jackpot <- pojavi_v_jackpot %>% separate('Številke', c("JACKPOT", "5+1"), "-") %>%
-  filter(Število != '--') %>% filter(Število >0)      #dobila števila ki so bila na dobitnih listkih
+pojavi_v_jackpot <- pojavi_v_jackpot %>% filter(Število != '--') %>% filter(Število >0)      #dobila števila ki so bila na dobitnih listkih
 pojavi_v_jackpot <- subset(pojavi_v_jackpot, select = -Število)
+pojavi_v_jackpot<- pojavi_v_jackpot %>% separate('Številke', c("prve","zadnje"), "-")
 
-pojavi_v_jackpot_prvih<- pojavi_v_jackpot[,-3] %>% separate('JACKPOT', c("a", "b","c","d","e"), ",") %>% 
+pojavi_v_jackpot_prvih<- pojavi_v_jackpot[,-3] %>% separate('prve', c("a", "b","c","d","e"), ",") %>% 
   gather(Nepomembno,Stevilka, "a":"e")
 pojavi_v_jackpot_prvih <- subset(pojavi_v_jackpot_prvih, select = -Nepomembno)
 
-pojavi_v_jackpot_zadnje<- pojavi_v_jackpot[,-2] %>% separate('5+1', c("a", "b"), ",") %>% 
+pojavi_v_jackpot_zadnje<- pojavi_v_jackpot[,-2] %>% separate('zadnje', c("a", "b"), ",") %>% 
   gather(Nepomembno,Stevilka, "a":"b")
 pojavi_v_jackpot_zadnje <- subset(pojavi_v_jackpot_zadnje, select = -Nepomembno)
 pojavi_v_jackpot_zadnje$Stevilka <- as.numeric(pojavi_v_jackpot_zadnje$Stevilka)

@@ -7,45 +7,45 @@ library(tidyr)
 
 
 # WIKIPEDIJA : tabela zabeleženih dobitkov
-link <- "https://en.wikipedia.org/wiki/Eurojackpot"
-stran <- html_session(link) %>% read_html()
-tabela_wiki <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
-  .[[1]] %>% html_table(dec=",")
-
-#2012
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2012&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2012 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2013
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2013&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2013 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2014
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2014&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2014 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2015
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2015&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2015 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2O16
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2016&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2016 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2017
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2017&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2017 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
-
-#2018
-link <-"https://www.loterija.si/LOTERIJA.asp?leto=2018&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
-stran <- html_session(link) %>% read_html()
-tabela2018 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# link <- "https://en.wikipedia.org/wiki/Eurojackpot"
+# stran <- html_session(link) %>% read_html()
+# tabela_wiki <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+#   .[[1]] %>% html_table(dec=",")
+# 
+# #2012
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2012&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2012 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2013
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2013&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2013 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2014
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2014&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2014 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2015
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2015&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2015 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2O16
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2016&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2016 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2017
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2017&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2017 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
+# 
+# #2018
+# link <-"https://www.loterija.si/LOTERIJA.asp?leto=2018&lytoo=igre%2Figre_z_zrebanji%2Feurojackpot%2Fstatistika%2Feurojackpot_arhiv"
+# stran <- html_session(link) %>% read_html()
+# tabela2018 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]] %>% html_table()
 
 #ČIŠČENJE PODATKOV
 
@@ -56,12 +56,29 @@ tabela2018 <- stran %>% html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]
 #tabela_wiki[['Date']] <- parse_number(tabela_wiki[['Date']], locale=sl)
 #tabela_wiki[['Prize in euro']]  Da bo numerično
 #colnames(tabela_wiki) <- c("Leto","Nagrada(€)","Država")
+#tabela <-rbind(tabela2012,tabela2013,tabela2014,tabela2015,tabela2016,tabela2017,tabela2018)
 
-
-
-tabela <-rbind(tabela2012,tabela2013,tabela2014,tabela2015,tabela2016,tabela2017,tabela2018)
+tabela <- NULL
+for (leto in 2012:2018) {
+  # pripravimo povezavo
+  link <- sprintf("https://www.loterija.si/LOTERIJA.asp?leto=%d&lytoo=igre%%2Figre_z_zrebanji%%2Feurojackpot%%2Fstatistika%%2Feurojackpot_arhiv", leto)
+  # pridobimo tabelo
+  html.tabela <- html_session(link) %>% read_html() %>%
+    html_nodes(xpath="//table[@class='stdtable']") %>% .[[1]]
+  # pripravimo seznam značk s podatki za 5+1
+  spans <- html.tabela %>% html_nodes(xpath=".//span[@class='stats5-1']")
+  # podatke za 5+1 spravimo v matriko
+  stats51 <- spans %>% html_text() %>% matrix(ncol=3, byrow=TRUE) %>% trimws()
+  # pobrišemo podatke za 5+1
+  xml_text(spans) <- ""
+  # pridobimo ostale podatke in dodamo stolpce za 5+1
+  tabela.leto <- html.tabela %>% html_table() %>% cbind(stats51)
+  # pridružimo k podatkom za prejšnja leta
+  tabela <- rbind(tabela, tabela.leto)
+}
 tabela[['Datum']] <- parse_date(tabela[['Datum']],"%d.%m.%Y")
-
+colnames(tabela) <- c('Datum','Krog', 'Številke','Število jackpot','Vrednost jackpot','Država jackpot',
+                      'Število 5+1','Vrednost 5+1','Država 5+1')
 #1.RAZPREDELNICA(DATUM, KROG, DOBITEK)
 tabela1 <- tabela[c(1,2)]
 
@@ -87,69 +104,69 @@ tabela2$Stevilka <- as.numeric(tabela2$Stevilka)
 
 #3.RAZPREDELNICA(DATUM,DOBITEK, VREDNOST)
 
-razpredelnica3 <- tabela[c(1,2,5)]
-colnames(razpredelnica3)<- c("Datum","Dobitek","Vrednost")
-razpredelnica3 <-razpredelnica3 %>% filter(Vrednost != '--')  #kjer ni bilo dobitka damo ven
-#write_csv(razpredelnica3, "razpredelnica.csv", na="")
-razpredelnica <- read_csv("razpredelnica.csv")
-razpredelnica3 <- razpredelnica %>% separate(!!'Vrednost', c("JACKPOT", "5+1"), "-");
-razpredelnica3 <- razpredelnica3%>% gather(Dobitek,Vrednost, "JACKPOT":"5+1")
-tabela3 <- razpredelnica3 %>% filter(Vrednost != "")
+razpredelnica3 <- tabela[c(1,5)]
+colnames(razpredelnica3)<- c("Datum","Vrednost")
+razpredelnica3 <-razpredelnica3 %>% filter(Vrednost != '-')  #kjer ni bilo dobitka damo ven
+razpredelnica3 <- razpredelnica3 %>% mutate(Dobitek = 'JACKPOT')
+
+razpredelnicaa3 <- tabela[c(1,8)]
+colnames(razpredelnicaa3)<- c("Datum","Vrednost")
+razpredelnicaa3 <-razpredelnicaa3 %>% filter(Vrednost != '-')  #kjer ni bilo dobitka damo ven
+razpredelnicaa3 <- razpredelnicaa3 %>% mutate(Dobitek = '5+1')
+
+tabela3 <- rbind(razpredelnica3,razpredelnicaa3)
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 tabela3[['Vrednost']] <- parse_number(tabela3[['Vrednost']], na="-", locale=sl)
 
-
-
 #4.RAZPREDELNICA(DATUM, DOBITEK, STEVILO, DRŽAVA)
-tabela4 <- tabela[c(1,4,6)]
-colnames(tabela4)<- c("Datum","Stevilo","Drzava")
-tabela4 <-tabela4 %>% filter(Stevilo != '--')
-#write_csv(tabela4, "razpredelnica2.csv", na="")
-razpredelnica4 <- read_csv("razpredelnica2.csv")
-tabelaa<- razpredelnica4 %>% separate('Stevilo', c("JACKPOT", "5+1"), "-")
-tabelaaa<-razpredelnica4 %>% separate('Drzava', c("dr_JACKPOT", "dr_5"), "-")
-
-jackpot<-tabelaa[c(1,2)]
-jackpot$Drzava<-tabelaaa$dr_JACKPOT
-jackpot <- jackpot %>% drop_na(JACKPOT)
-jackpot <- jackpot %>% filter(JACKPOT != "")
-colnames(jackpot) <- c("datum","stevilo","drzava")
-jackpot <- jackpot %>% separate('drzava', c("a", "b","c","d"), ",", extra="merge")
-jackpot <- jackpot %>% gather(Nepomembno,drzava, "a":"d")
-jackpot <- jackpot %>% drop_na(drzava)
-jackpot <- subset(jackpot, select = -Nepomembno)
-c <- parse_number(jackpot$drzava)      #parse_number-vzame število, če ni je NA
-is.na_replace_1 <- c                            
+tabela4_jackpot <- tabela[c(1,4,6)]
+colnames(tabela4_jackpot)<- c("Datum","Stevilo","Drzava")
+tabela4_jackpot <- tabela4_jackpot %>% filter(Stevilo != '-')
+tabela4_jackpot <- tabela4_jackpot %>% separate('Drzava', c("a", "b","c","d"), ",", extra="merge") %>% 
+  gather(Nepomembno,Drzava, "a":"d") %>% drop_na(Drzava)
+tabela4_jackpot <- subset(tabela4_jackpot, select = -Nepomembno)
+vec_dobitkov <- parse_number(tabela4_jackpot$Drzava)      #parse_number-vzame število, če ni je NA
+is.na_replace_1 <- vec_dobitkov                            
 is.na_replace_1[is.na(is.na_replace_1)] <- 1 
-jackpot$stevilo <- is.na_replace_1
-jackpot <- jackpot %>% mutate(dobitek = 'jackpot')
+tabela4_jackpot$Stevilo <- is.na_replace_1
+tabela4_jackpot <- tabela4_jackpot %>% mutate(Dobitek = 'jackpot')
 
-pet<-tabelaa[c(1,3)]
-pet$Drzava <- tabelaaa$dr_5
-colnames(pet) <- c("datum","stevilo","drzava")
-pet <- pet %>%filter(stevilo != "")
-pet <- pet %>% separate('drzava', c("a", "b","c","d","e", "f","g","h"), ",", extra="merge")
-pet <- pet%>% gather(Nepomembno,drzava, "a":"h")
-pet <- pet %>%drop_na(drzava)
-pet <- subset(pet, select = -Nepomembno)
-c <- parse_number(pet$drzava)
-is.na_replace_1 <- c                            
+tabela4_pet <- tabela[c(1,7,9)]
+colnames(tabela4_pet)<- c("Datum","Stevilo","Drzava")
+tabela4_pet <- tabela4_pet %>% filter(Stevilo != '-')
+tabela4_pet <- tabela4_pet %>%filter(Stevilo != "")
+tabela4_pet <- tabela4_pet %>% separate('Drzava', c("a", "b","c","d","e","f","g","h"), ",", extra="merge") %>% 
+  gather(Nepomembno,Drzava, "a":"h") %>% drop_na(Drzava)
+tabela4_pet <- tabela4_pet %>% filter(Drzava != '')
+tabela4_pet <- subset(tabela4_pet, select = -Nepomembno)
+vec_dobitkov <- parse_number(tabela4_pet$Drzava)      #parse_number-vzame število, če ni je NA
+is.na_replace_1 <- vec_dobitkov                            
 is.na_replace_1[is.na(is.na_replace_1)] <- 1 
-pet$stevilo<-is.na_replace_1
-pet <- pet %>%filter(drzava != "")  %>% mutate(dobitek = '5+1')
+tabela4_pet$Stevilo <- is.na_replace_1
+tabela4_pet <- tabela4_pet %>% mutate(Dobitek = '5+1')
+tabela4_pet$Stevilo <- gsub("-", "", tabela4_pet$Stevilo)
 
 
-tabela_koncna <- rbind(jackpot,pet)
-tabela_koncna$drzava <- gsub("[[:digit:]]x", "", tabela_koncna$drzava)
+tabela_koncna <- rbind(tabela4_jackpot,tabela4_pet)
+tabela_koncna$Drzava <- gsub("[[:digit:]]x", "", tabela_koncna$Drzava)
+tabela_koncna$Drzava<- gsub("-", "", tabela_koncna$Drzava)
+tabela_koncna$Drzava<- gsub(":", "", tabela_koncna$Drzava)
 
 
 #RAZPREDELNICA ZA SLOVENIJO (dodan tudi kraj)
-tabela_koncna <- tabela_koncna %>% separate('drzava', c("drzava","kraj"), "\\(", extra="merge")
-tabela_koncna$kraj<- gsub("\\)", "", tabela_koncna$kraj)
-slovenija<- tabela_koncna %>%filter(drzava == "Slovenija")
-slovenija$drzava <- NULL
-slovenija$stevilo <- NULL
-tabela4 <- subset(tabela_koncna, select = - kraj)
+c <- unlist(tabela_koncna$Drzava)
+c <- trimws(c, which = c("both"))     #motijo presledki
+tabela_koncna$Drzava <- c
+
+tabela_koncna <- tabela_koncna %>% separate('Drzava', c("Drzava","Kraj"), "\\s", extra="merge")
+tabela_koncna$Drzava<- gsub("Koper", "", tabela_koncna$Drzava)
+slovenija<- tabela_koncna %>%filter(Drzava == "Slovenija")
+slovenija$Drzava <- NULL
+slovenija$Stevilo <- NULL
+slovenija$Kraj<- gsub("\\)", "", slovenija$Kraj)
+slovenija$Kraj<- gsub("\\(", "", slovenija$Kraj)
+
+tabela4 <- subset(tabela_koncna, select = - Kraj)
 
 
 
