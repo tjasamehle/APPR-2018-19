@@ -143,3 +143,4 @@ zemljevid_zadetki_pet <- ggplot() +
   guides(fill=guide_legend(title="Število zadetkov")) + theme(plot.title = element_text(hjust = 0.5))
 
 #zemljevid_zadetki_pet
+

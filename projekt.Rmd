@@ -97,8 +97,9 @@ kable(head(tabela2), align="c")
 
 3. **tabela3** - podatki o višini dobitkov določenega tipa(Eurojackpot ali 5+1)
   - `Datum` - spremenljivka: datum žrebanja,
-  - `Dobitek` - spremenljivka: za kateri tip zadetka gre,
-  - `Vrednost` - spremenljivka: višina dobitka.
+  - `Vrednost` - spremenljivka: višina dobitka v €,
+  - `Dobitek` - spremenljivka: za kateri tip zadetka gre.
+  
   
 ```{r tabela3, echo=FALSE, message=FALSE}
 kable(head(tabela3), align="c")
