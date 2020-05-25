@@ -188,7 +188,11 @@ Na mestih za dodatni števili pa so dobitnih listkih največkrat imeli številko
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 # Naprednejša analiza
-Ker se mi je pojavnost števil zdela zanimiva sem nadaljevala z napredno analizo.
+Pri naprednejši analize sem pogledala kako je bilo z višino dobitkov skozi leta in sicer sem pogledala povprečen dobitek v letih in probala napovedati kakšna bo povprečna višina dobitka jackpot v prihodnjih letih.
+```{r graf_regresija, echo=FALSE, message=FALSE, fig.align='center', warning = FALSE}
+print(graf_regresija)
+```
+
 V aplikaciji Shiny sem pripravila tabele in sicer analizo glavnih števil ter analizo dodatnih števil.
 Za usako število tako lahko pogledamo kolikokrat so bile ižžrebane, kolikokrat so bile na dobitnem jackpot listku, ter kdaj je bila številka nazadnje izžrebama. Za analizo dodatnih dveh števil sem dodala še tabelo, ki za izbrano število pokaže kolikokrat je bila v paru z ostalimi števili.
 

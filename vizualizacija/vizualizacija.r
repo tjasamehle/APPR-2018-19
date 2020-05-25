@@ -45,7 +45,7 @@ pogostost_zadnjih <- ggplot(zadnje, aes(x=Stevilka, y= n)) +
                               labs(title="Frekvenca euro številk", y="Frekvenca",x="Številka")
 pogostost_zadnjih<- pogostost_zadnjih + scale_x_discrete(limits=c(1:10))
 
-#višina eurojackpot dobitka po letih
+#višina dobitka po letih
 visina <- tabela3
 options(scipen=999)
 visina$Vrednost <- visina$Vrednost/1000000

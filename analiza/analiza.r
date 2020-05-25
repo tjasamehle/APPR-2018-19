@@ -1,4 +1,22 @@
 # 4. faza: Analiza podatkov
+#NAPOVED VISINE DOBITKA JACKPOTA
+v <- tabela3 %>% filter(Dobitek == 'JACKPOT')
+v$Datum<-gsub("-([[:digit:]]{1,2})-([[:digit:]]{1,2})","", v$Datum)
+povprecje <- v %>% group_by(Datum) %>% summarise(Povprecje = mean(Vrednost))
+povprecje$Povprecje <- povprecje$Povprecje/1000000
+povprecje$Datum <- as.numeric(povprecje$Datum)
+prileganje <- lm(data = povprecje, Povprecje ~ Datum)
+
+g <- data.frame(Datum=seq(2019, 2023, 1))
+napoved <- mutate(g, Povprecje=predict(prileganje, g))
+options(scipen=999)
+graf_regresija <- ggplot(povprecje, aes(x=Datum, y=Povprecje)) + 
+  geom_point() + geom_smooth(method=lm, fullrange = TRUE, color = 'blue') + 
+  geom_point(data=napoved, aes(x=Datum, y=Povprecje), color='red', size=2) +
+  ggtitle('Napoved povprečne višine dobitka jackpot') + 
+  ylab('Višina v mio€') + xlab('Leto')
+
+#SHINY
 pojavi_v_jackpot <- tabela[c(1,3,4)]
 colnames(pojavi_v_jackpot) <- c('Datum','Številke','Število')
 pojavi_v_jackpot <- pojavi_v_jackpot %>% filter(Število != '--') %>% filter(Število >0)      #dobila števila ki so bila na dobitnih listkih
@@ -52,7 +70,6 @@ vparu <-vparu[,c(2,1)]
 colnames(vparu) <- c('Stevilka','Pojavila v paru z analizirano stevilko')
 vparu
 }
-
 
 
 # podatki <- obcine %>% transmute(obcina, povrsina, gostota,
