@@ -54,6 +54,7 @@ vparu
 }
 
 
+
 # podatki <- obcine %>% transmute(obcina, povrsina, gostota,
 #                                 gostota.naselij=naselja/povrsina) %>%
 #   left_join(povprecja, by="obcina")

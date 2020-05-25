@@ -30,12 +30,11 @@ prvih<- tabela2 %>% filter(Tip == 'prvih_pet') %>% count(Stevilka)
 prvih$n <- prvih$n/50
 theme_set(theme_bw())
 pogostost_prvih <- ggplot(prvih, aes(x=Stevilka, y= n)) + 
-  geom_point(aes(col=Stevilka, size=n)) + 
-  geom_smooth(method="loess", color ='red', se=F,fullrange = TRUE) + 
+  geom_point(aes(col=Stevilka, size=n)) +
   labs(title="Frekvenca glavnih številk", 
        y="Frekvenca", 
        x="Številka")
-pogostost_prvih<- pogostost_prvih + scale_x_discrete(limits=c((1:50),2))
+pogostost_prvih<- pogostost_prvih + scale_x_discrete(limits=c((1:50),2))+ theme(axis.text.x=element_text(size= 7))
 
 #Pogostost euro(zadnjih dveh) številk
 zadnje<- tabela2 %>% filter(Tip == 'zadnje_dve') %>% count(Stevilka)
@@ -43,7 +42,6 @@ zadnje$n <- zadnje$n/10
 theme_set(theme_bw())
 pogostost_zadnjih <- ggplot(zadnje, aes(x=Stevilka, y= n)) +
                               geom_point(aes(col=Stevilka, size=n)) + 
-                              geom_smooth(method="loess", color ='blue', se=F,fullrange = TRUE) + 
                               labs(title="Frekvenca euro številk", y="Frekvenca",x="Številka")
 pogostost_zadnjih<- pogostost_zadnjih + scale_x_discrete(limits=c(1:10))
 
