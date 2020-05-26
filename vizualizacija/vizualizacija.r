@@ -6,9 +6,8 @@ require(reshape2)
 
 library(rgdal)
 library(maptools)
-library(ggpubr)
+library(ggpubr)  # 'ggpubr' provides some easy-to-use functions for creating and customizing ggplot2
 library(ggplot2)
-library(digest)
 
 
 #Število dobitkov JACKPOT in 5+1 v zadnjih letih
@@ -72,7 +71,7 @@ graf<- ggplot(data = denar, aes(x = Datum, y =Vsota, fill ='lightpink'))+
 
  
 # Uvozimo zemljevid.
-#source("https://raw.githubusercontent.com/jaanos/APPR-2018-19/master/lib/uvozi.zemljevid.r")
+source("https://raw.githubusercontent.com/jaanos/APPR-2018-19/master/lib/uvozi.zemljevid.r")
 
 zemljevid <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip",
                              "ne_50m_admin_0_countries", mapa = "zemljevidi", pot.zemljevida = "", encoding = "UTF-8") %>% 

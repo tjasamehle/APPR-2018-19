@@ -1,8 +1,8 @@
 # 2. faza: Uvoz podatkov
-library(rvest)
-library(gsubfn)
-library(readr)
-library(dplyr)
+library(rvest)    #html web pages
+library(gsubfn) 
+library(readr)   #branje tabele
+library(dplyr)   #za uporabo verizenja
 library(tidyr)
 
 
